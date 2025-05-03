@@ -29,7 +29,11 @@ fn analyse_dom(dom: rbx_dom_weak::WeakDom) -> Result<(u32, u32), Box<dyn std::er
 
         used_classes.insert(class);
         for (&name, &(v_min, v_max)) in h.entries() {
-            match descendant.properties.contains_key(&Ustr::from(name)) {
+            let check = match name {
+                "" => true,
+                _ => descendant.properties.contains_key(&Ustr::from(name)),
+            };
+            match check {
                 true => {
                     if v_min > likely_version_min {
                         likely_version_min = v_min;
@@ -39,6 +43,17 @@ fn analyse_dom(dom: rbx_dom_weak::WeakDom) -> Result<(u32, u32), Box<dyn std::er
                     }
                 }
                 false => {
+                    if name.contains("Parent") {
+                        println!(
+                            "{}",
+                            descendant
+                                .properties
+                                .keys()
+                                .map(|e| e.as_str())
+                                .collect::<Vec<_>>()
+                                .join(" ")
+                        );
+                    }
                     if v_max >= likely_version_max && v_min < likely_version_max {
                         likely_version_max = v_min;
                     }
@@ -48,6 +63,10 @@ fn analyse_dom(dom: rbx_dom_weak::WeakDom) -> Result<(u32, u32), Box<dyn std::er
     }
 
     return Ok((likely_version_min, likely_version_max - 1));
+    match likely_version_min >= likely_version_max {
+        true => Err("This program needs help figuring your file out.".into()),
+        false => Ok((likely_version_min, likely_version_max - 1)),
+    }
 }
 
 fn analyse_file(file_name: String) -> Result<(u32, u32), Box<dyn std::error::Error>> {
@@ -58,7 +77,9 @@ fn analyse_file(file_name: String) -> Result<(u32, u32), Box<dyn std::error::Err
 
 fn main() {
     for path in Args::parse().file_paths {
-        let (v_min, v_max) = analyse_file(path.clone()).unwrap();
+        let Ok((v_min, v_max)) = analyse_file(path.clone()) else {
+            continue;
+        };
         println!("{},{},{}", path, v_min, v_max);
     }
 }

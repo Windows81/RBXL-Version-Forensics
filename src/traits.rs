@@ -5,12 +5,14 @@ type HashType<'a> = Map<&'a str, (u32, u32)>;
 Ranges are from:
 - minimum Rōblox API version (inclusive) to
 - maximum Rōblox API version (exclusive)
+
+Empty string indicies are equivalent to properties which always exist with the class.
 */
 
 #[macro_export]
 macro_rules! single_attr {
     ($v_min:expr, $v_max:expr) => {
-        phf_map! { "UniqueId" => ($v_min, $v_max) }
+        phf_map! { "" => ($v_min, $v_max) }
     };
 }
 pub const VERSION_MIN: u32 = 47;
@@ -21,7 +23,6 @@ const TEXT_GUI_OBJECT: HashType = phf_map! {
     "LocalizationMatchIdentifier" => (603, u32::MAX),
     "LocalizationMatchedSourceText" => (603, u32::MAX),
     "TextDirection" => (581, u32::MAX),
-    "FontFace" => (517, u32::MAX),
     "MaxVisibleGraphemes" => (469, u32::MAX),
     "Content" => (465, 466),
     "RichText" => (438, u32::MAX),
@@ -111,7 +112,6 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
     "Terrain" => phf_map! {
         "GrassLength" => (595, u32::MAX),
         "ShorelinesUpgraded" => (554, u32::MAX),
-        "AcquisitionMethod" => (553, u32::MAX),
         "Decoration" => (410, u32::MAX),
         "MaterialColors" => (349, u32::MAX),
         "WaterReflectance" => (262, u32::MAX),
@@ -124,7 +124,7 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
     },
     "StudioData" => phf_map! {
         "EnableScriptCollabByDefaultOnLoad" => (419, u32::MAX),
-        "UniqueId" => (384, u32::MAX),
+        "" => (384, u32::MAX),
     },
     "Workspace" => phf_map! {
         "PhysicsImprovedSleep" => (662, u32::MAX),
@@ -142,7 +142,6 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
         "ModelStreamingBehavior" => (580, u32::MAX),
         "AvatarUnificationMode" => (572, u32::MAX),
         "RejectCharacterDeletions" => (555, u32::MAX),
-        "CollisionGroupData" => (553, u32::MAX),
         "StreamingIntegrityMode" => (541, u32::MAX),
         "ReplicateInstanceDestroySetting" => (513, u32::MAX),
         "GlobalWind" => (512, u32::MAX),
@@ -217,7 +216,6 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
     },
     "MaterialService" => phf_map! {
         "CardboardName" => (588, u32::MAX),
-        "Use2022MaterialsXml" => (553, u32::MAX),
         "SmoothPlasticName" => (518, u32::MAX),
     },
     "ChatWindowConfiguration" => phf_map! {
@@ -229,7 +227,6 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
         "AvatarJointUpgrade_SerializedRollout" => (650, u32::MAX),
         "LuaCharacterController" => (603, u32::MAX),
         "EnableDynamicHeads" => (540, u32::MAX),
-        "LoadCharacterLayeredClothing" => (499, u32::MAX),
         "UserEmotesEnabled" => (384, u32::MAX),
         "GameSettingsAvatar" => (381, u32::MAX),
         "CharacterJumpHeight" => (375, u32::MAX),
@@ -261,7 +258,7 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
     "ModuleScript" => phf_map! {
         "LinkedSource" => (187, u32::MAX),
         "Source" => (137, u32::MAX),
-        "UniqueId" => (131, u32::MAX),
+        "" => (131, u32::MAX),
     },
     "DepthOfFieldEffect" => phf_map! {
         "FarIntensity" => (427, u32::MAX),
