@@ -218,6 +218,15 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
         "CardboardName" => (588, u32::MAX),
         "SmoothPlasticName" => (518, u32::MAX),
     },
+    "ChannelTabsConfiguration" => phf_map! {
+        "BackgroundColor3" => (635, u32::MAX),
+    },
+    "ChatInputBarConfiguration" => phf_map! {
+        "AutocompleteEnabled" => (588, u32::MAX),
+        "KeyboardKeyCode" => (574, u32::MAX),
+        "BackgroundColor3" => (554, u32::MAX),
+        "Enabled" => (514, u32::MAX),
+    },
     "ChatWindowConfiguration" => phf_map! {
         "BackgroundColor3" => (551, u32::MAX),
         "HorizontalAlignment" => (547, u32::MAX),
@@ -273,9 +282,18 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
     "SunRaysEffect" => phf_map! {
         "Intensity" => (243, u32::MAX),
     },
+    "Atmosphere" => phf_map! {
+        "Color" => (429, u32::MAX),
+    },
     "SpawnLocation" => phf_map! {
         "Enabled" => (204, u32::MAX),
     },
+    "DataStoreService" => phf_map! {
+        "AutomaticRetry" => (306, u32::MAX),
+        "LegacyNamingScheme" => (155, u32::MAX),
+        "" => (132, u32::MAX),
+    },
+
     "LodDataService" => single_attr! (503, u32::MAX),
     "ProcessInstancePhysicsService" => single_attr! (498, u32::MAX),
     "ProximityPromptService" => single_attr! (454, u32::MAX),
@@ -284,7 +302,9 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
     "TouchInputService" => single_attr! (205, u32::MAX),
     "NonReplicatedCSGDictionaryService" => single_attr! (176, u32::MAX),
     "Folder" => single_attr! (162, u32::MAX),
+    "ReplicatedFirst" => single_attr! (154, u32::MAX),
     "HttpService" => single_attr! (122, u32::MAX),
+    "AssetService" => single_attr! (119, u32::MAX),
     "ScriptService" => single_attr! (90, u32::MAX),
     "GamePassService" => single_attr! (72, u32::MAX),
 };
