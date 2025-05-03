@@ -1,0 +1,293 @@
+use phf::{Map, phf_map};
+type HashType<'a> = Map<&'a str, (u32, u32)>;
+
+/*
+Ranges are from:
+- minimum Rōblox API version (inclusive) to
+- maximum Rōblox API version (exclusive)
+*/
+
+#[macro_export]
+macro_rules! single_attr {
+    ($v_min:expr, $v_max:expr) => {
+        phf_map! { "UniqueId" => ($v_min, $v_max) }
+    };
+}
+pub const VERSION_MIN: u32 = 47;
+pub const VERSION_MAX: u32 = 672;
+
+const TEXT_GUI_OBJECT: HashType = phf_map! {
+    "OpenTypeFeatures" => (629, u32::MAX),
+    "LocalizationMatchIdentifier" => (603, u32::MAX),
+    "LocalizationMatchedSourceText" => (603, u32::MAX),
+    "TextDirection" => (581, u32::MAX),
+    "FontFace" => (517, u32::MAX),
+    "MaxVisibleGraphemes" => (469, u32::MAX),
+    "Content" => (465, 466),
+    "RichText" => (438, u32::MAX),
+    "TextTruncate" => (326, u32::MAX),
+    "LineHeight" => (317, u32::MAX),
+    "TextSize" => (263, u32::MAX),
+    "TextWrapped" => (51, u32::MAX),
+    "TextScaled" => (50, u32::MAX),
+    "TextStrokeColor3" => (48, u32::MAX),
+    "TextStrokeTransparency" => (48, u32::MAX),
+
+    // Shared between all `GuiObject` types.
+    "Interactable" => (589, u32::MAX),
+    // "SelectionOrder" => (524, u32::MAX),
+    "AutomaticSize" => (449, u32::MAX),
+    "BorderMode" => (397, u32::MAX),
+    "LayoutOrder" => (280, u32::MAX),
+    "AnchorPoint" => (271, u32::MAX),
+    "Selectable" => (201, u32::MAX),
+    "SelectionImageObject" => (200, u32::MAX),
+    "NextSelectionDown" => (197, u32::MAX),
+    "NextSelectionLeft" => (197, u32::MAX),
+    "NextSelectionRight" => (197, u32::MAX),
+    "NextSelectionUp" => (197, u32::MAX),
+    "Rotation" => (131, u32::MAX),
+    "ClipsDescendants" => (48, u32::MAX),
+};
+
+const IMAGE_GUI_OBJECT: HashType = phf_map! {
+    // "ImageContent" => (647, u32::MAX),
+    "ResampleMode" => (490, u32::MAX),
+    "SliceScale" => (356, u32::MAX),
+    // "HoverImage" => (350, u32::MAX),
+    // "PressedImage" => (350, u32::MAX),
+    "TileSize" => (290, u32::MAX),
+    "ScaleType" => (207, u32::MAX),
+    "SliceCenter" => (207, u32::MAX),
+    "ImageColor3" => (163, u32::MAX),
+    "ImageTransparency" => (148, u32::MAX),
+    "ImageRectOffset" => (131, u32::MAX),
+    // "ImageRectSize" => (131, u32::MAX),
+
+    // Shared between all `GuiObject` types.
+    "Interactable" => (589, u32::MAX),
+    // "SelectionOrder" => (524, u32::MAX),
+    "AutomaticSize" => (449, u32::MAX),
+    "BorderMode" => (397, u32::MAX),
+    "LayoutOrder" => (280, u32::MAX),
+    "AnchorPoint" => (271, u32::MAX),
+    "Selectable" => (201, u32::MAX),
+    "SelectionImageObject" => (200, u32::MAX),
+    "NextSelectionDown" => (197, u32::MAX),
+    "NextSelectionLeft" => (197, u32::MAX),
+    "NextSelectionRight" => (197, u32::MAX),
+    "NextSelectionUp" => (197, u32::MAX),
+    "Rotation" => (131, u32::MAX),
+    "ClipsDescendants" => (48, u32::MAX),
+};
+
+const BASE_PART: HashType = phf_map! {
+    "PhysicsCFrame" => (631, 635),
+    "AudioCanCollide" => (652, u32::MAX),
+    "EnableFluidForces" => (581, u32::MAX),
+    "CanQuery" => (484, u32::MAX),
+    "PivotOffset" => (470, u32::MAX),
+    "CanTouch" => (460, u32::MAX),
+    "CastShadow" => (380, u32::MAX),
+    "Massless" => (361, u32::MAX),
+    "RootPriority" => (361, u32::MAX),
+    "CollisionGroupId" => (287, u32::MAX),
+    "CustomPhysicalProperties" => (220, u32::MAX),
+    // "Rotation" => (110, u32::MAX),
+};
+
+pub const TRAITS: Map<&str, HashType> = phf_map! {
+    "Part" => BASE_PART,
+    "WedgePart" => BASE_PART,
+    "CornerWedgePart" => BASE_PART,
+    "TextLabel" => TEXT_GUI_OBJECT,
+    "TextButton" => TEXT_GUI_OBJECT,
+    "ImageButton" => IMAGE_GUI_OBJECT,
+    "ImageLabel" => IMAGE_GUI_OBJECT,
+    "Model" => phf_map! {
+        "ModelStreamingMode" => (548, u32::MAX),
+        "LevelOfDetail" => (442, u32::MAX),
+    },
+    "Terrain" => phf_map! {
+        "GrassLength" => (595, u32::MAX),
+        "ShorelinesUpgraded" => (554, u32::MAX),
+        "AcquisitionMethod" => (553, u32::MAX),
+        "Decoration" => (410, u32::MAX),
+        "MaterialColors" => (349, u32::MAX),
+        "WaterReflectance" => (262, u32::MAX),
+        "WaterColor" => (223, u32::MAX),
+    },
+    "Players" => phf_map! {
+        "BanningEnabled" => (651, u32::MAX),
+        "RespawnTime" => (371, u32::MAX),
+        "CharacterAutoLoads" => (55, u32::MAX),
+    },
+    "StudioData" => phf_map! {
+        "EnableScriptCollabByDefaultOnLoad" => (419, u32::MAX),
+        "UniqueId" => (384, u32::MAX),
+    },
+    "Workspace" => phf_map! {
+        "PhysicsImprovedSleep" => (662, u32::MAX),
+        "FallHeightEnabled" => (655, u32::MAX),
+        "TouchEventsUseCollisionGroups" => (650, u32::MAX),
+        "SandboxedInstanceMode" => (648, u32::MAX),
+        "PathfindingUseImprovedSearch" => (640, u32::MAX),
+        "MoverConstraintRootBehavior" => (628, u32::MAX),
+        "RenderingCacheOptimizations" => (623, u32::MAX),
+        "PlayerCharacterDestroyBehavior" => (603, u32::MAX),
+        "PrimalPhysicsSolver" => (600, u32::MAX),
+        "FluidForces" => (587, u32::MAX),
+        "AirDensity" => (581, u32::MAX),
+        "EnableFluidForces" => (581, 587),
+        "ModelStreamingBehavior" => (580, u32::MAX),
+        "AvatarUnificationMode" => (572, u32::MAX),
+        "RejectCharacterDeletions" => (555, u32::MAX),
+        "CollisionGroupData" => (553, u32::MAX),
+        "StreamingIntegrityMode" => (541, u32::MAX),
+        "ReplicateInstanceDestroySetting" => (513, u32::MAX),
+        "GlobalWind" => (512, u32::MAX),
+        "Retargeting" => (494, u32::MAX),
+        "StreamOutBehavior" => (491, u32::MAX),
+        "ClientAnimatorThrottling" => (475, u32::MAX),
+        "MeshPartHeadsAndAccessories" => (466, u32::MAX),
+        "PhysicsSteppingMethod" => (464, u32::MAX),
+        "TouchesUseCollisionGroups" => (460, u32::MAX),
+        "StreamingMinRadius" => (362, u32::MAX),
+        "FallenPartsDestroyHeight" => (298, u32::MAX),
+        "Gravity" => (241, u32::MAX),
+        "AllowThirdPartySales" => (221, u32::MAX),
+        "StreamingEnabled" => (132, u32::MAX),
+    },
+    "Lighting" => phf_map! {
+        "LightingStyle" => (653, u32::MAX),
+        "EnvironmentDiffuseScale" => (407, u32::MAX),
+        "ShadowSoftness" => (380, u32::MAX),
+        "ExposureCompensation" => (355, u32::MAX),
+        "Outlines" => (114, u32::MAX),
+        "OutdoorAmbient" => (101, u32::MAX),
+        "GlobalShadows" => (98, u32::MAX),
+        "FogColor" => (49, u32::MAX),
+    },
+    "Camera" => phf_map! {
+        "VRTiltAndRollEnabled" => (577, u32::MAX),
+        "FieldOfViewMode" => (450, u32::MAX),
+        "HeadScale" => (240, u32::MAX),
+        "HeadLocked" => (234, u32::MAX),
+        "CFrame" => (230, u32::MAX),
+        "FieldOfView" => (50, u32::MAX),
+    },
+    "BubbleChatConfiguration" => phf_map! {
+        "MaxBubbles" => (580, u32::MAX),
+        "BackgroundTransparency" => (553, u32::MAX),
+        "FontFace" => (551, u32::MAX),
+        "AdorneeName" => (543, u32::MAX),
+    },
+    "InsertService" => phf_map! {
+        "AllowClientInsertModels" => (349, u32::MAX),
+        "AllowInsertFreeModels" => (224, u32::MAX),
+    },
+    "Decal" => phf_map! {
+        "ZIndex" => (483, u32::MAX),
+        "Color3" => (274, u32::MAX),
+    },
+    "Texture" => phf_map! {
+        "OffsetStudsV" => (391, u32::MAX),
+    },
+    "StarterGui" => phf_map! {
+        "StudioDefaultStyleSheet" => (664, u32::MAX),
+        "StudioInsertWidgetLayerCollectorAutoLinkStyleSheet" => (661, u32::MAX),
+        "RtlTextSupport" => (564, u32::MAX),
+        "VirtualCursorMode" => (479, u32::MAX),
+        "ScreenOrientation" => (290, u32::MAX),
+        "ResetPlayerGuiOnSpawn" => (123, u32::MAX),
+    },
+    "ServiceVisibilityService" => phf_map! {
+        "HiddenServices" => (587, u32::MAX),
+        "VisibleServices" => (570, u32::MAX),
+    },
+    "ParticleEmitter" => phf_map! {
+        "WindAffectsDrag" => (576, u32::MAX),
+        "FlipbookFramerate" => (506, u32::MAX),
+        "Brightness" => (498, u32::MAX),
+        "TimeScale" => (464, u32::MAX),
+        "Orientation" => (463, u32::MAX),
+        "LightInfluence" => (293, u32::MAX),
+        "Drag" => (209, u32::MAX),
+        "Acceleration" => (189, u32::MAX),
+    },
+    "MaterialService" => phf_map! {
+        "CardboardName" => (588, u32::MAX),
+        "Use2022MaterialsXml" => (553, u32::MAX),
+        "SmoothPlasticName" => (518, u32::MAX),
+    },
+    "ChatWindowConfiguration" => phf_map! {
+        "BackgroundColor3" => (551, u32::MAX),
+        "HorizontalAlignment" => (547, u32::MAX),
+        "Enabled" => (514, u32::MAX),
+    },
+    "StarterPlayer" => phf_map! {
+        "AvatarJointUpgrade_SerializedRollout" => (650, u32::MAX),
+        "LuaCharacterController" => (603, u32::MAX),
+        "EnableDynamicHeads" => (540, u32::MAX),
+        "LoadCharacterLayeredClothing" => (499, u32::MAX),
+        "UserEmotesEnabled" => (384, u32::MAX),
+        "GameSettingsAvatar" => (381, u32::MAX),
+        "CharacterJumpHeight" => (375, u32::MAX),
+        "GameSettingsAssetIDFace" => (373, u32::MAX),
+        "AllowCustomAnimations" => (303, u32::MAX),
+        "ScreenOrientation" => (285, 290),
+        "LoadCharacterAppearance" => (218, u32::MAX),
+        "AutoJumpEnabled" => (206, u32::MAX),
+        "DevCameraOcclusionMode" => (176, u32::MAX),
+        "CameraMaxZoomDistance" => (172, u32::MAX),
+    },
+    "PlayerEmulatorService" => phf_map! {
+        "TextElongationFactor" => (645, u32::MAX),
+        "PseudolocalizationEnabled" => (615, u32::MAX),
+        "CustomPoliciesEnabled" => (493, u32::MAX),
+        "EmulatedCountryCode" => (455, u32::MAX),
+    },
+    "SoundService" => phf_map! {
+        "AudioApiByDefault" => (660, u32::MAX),
+        "CharacterSoundsUseNewApi" => (659, u32::MAX),
+        "DefaultListenerLocation" => (645, u32::MAX),
+        "VolumetricAudio" => (536, u32::MAX),
+        "RespectFilteringEnabled" => (305, u32::MAX),
+    },
+    "Sky" => phf_map! {
+        "SkyboxOrientation" => (671, u32::MAX), // TODO: check if it's actually saved by default.
+        "MoonAngularSize" => (303, u32::MAX),
+    },
+    "ModuleScript" => phf_map! {
+        "LinkedSource" => (187, u32::MAX),
+        "Source" => (137, u32::MAX),
+        "UniqueId" => (131, u32::MAX),
+    },
+    "DepthOfFieldEffect" => phf_map! {
+        "FarIntensity" => (427, u32::MAX),
+    },
+    "BloomEffect" => phf_map! {
+        "Intensity" => (243, u32::MAX),
+    },
+    "ColorCorrectionEffect" => phf_map! {
+        "TonemapperPreset" => (629, 631),
+        "Brightness" => (243, u32::MAX),
+    },
+    "SunRaysEffect" => phf_map! {
+        "Intensity" => (243, u32::MAX),
+    },
+    "SpawnLocation" => phf_map! {
+        "Enabled" => (204, u32::MAX),
+    },
+    "LodDataService" => single_attr! (503, u32::MAX),
+    "ProcessInstancePhysicsService" => single_attr! (498, u32::MAX),
+    "ProximityPromptService" => single_attr! (454, u32::MAX),
+    "PermissionsService" => single_attr! (420, u32::MAX),
+    "LocalizationService" => single_attr! (276, u32::MAX),
+    "TouchInputService" => single_attr! (205, u32::MAX),
+    "NonReplicatedCSGDictionaryService" => single_attr! (176, u32::MAX),
+    "Folder" => single_attr! (162, u32::MAX),
+    "HttpService" => single_attr! (122, u32::MAX),
+    "ScriptService" => single_attr! (90, u32::MAX),
+    "GamePassService" => single_attr! (72, u32::MAX),
+};
