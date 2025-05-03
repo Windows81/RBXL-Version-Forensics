@@ -26,7 +26,6 @@ const TEXT_GUI_OBJECT: HashType = phf_map! {
     "MaxVisibleGraphemes" => (469, u32::MAX),
     "Content" => (465, 466),
     "RichText" => (438, u32::MAX),
-    "TextTruncate" => (326, u32::MAX),
     "LineHeight" => (317, u32::MAX),
     "TextSize" => (263, u32::MAX),
     "TextWrapped" => (51, u32::MAX),
@@ -36,7 +35,6 @@ const TEXT_GUI_OBJECT: HashType = phf_map! {
 
     // Shared between all `GuiObject` types.
     "Interactable" => (589, u32::MAX),
-    // "SelectionOrder" => (524, u32::MAX),
     "AutomaticSize" => (449, u32::MAX),
     "BorderMode" => (397, u32::MAX),
     "LayoutOrder" => (280, u32::MAX),
@@ -52,22 +50,17 @@ const TEXT_GUI_OBJECT: HashType = phf_map! {
 };
 
 const IMAGE_GUI_OBJECT: HashType = phf_map! {
-    // "ImageContent" => (647, u32::MAX),
     "ResampleMode" => (490, u32::MAX),
     "SliceScale" => (356, u32::MAX),
-    // "HoverImage" => (350, u32::MAX),
-    // "PressedImage" => (350, u32::MAX),
     "TileSize" => (290, u32::MAX),
     "ScaleType" => (207, u32::MAX),
     "SliceCenter" => (207, u32::MAX),
     "ImageColor3" => (163, u32::MAX),
     "ImageTransparency" => (148, u32::MAX),
     "ImageRectOffset" => (131, u32::MAX),
-    // "ImageRectSize" => (131, u32::MAX),
 
     // Shared between all `GuiObject` types.
     "Interactable" => (589, u32::MAX),
-    // "SelectionOrder" => (524, u32::MAX),
     "AutomaticSize" => (449, u32::MAX),
     "BorderMode" => (397, u32::MAX),
     "LayoutOrder" => (280, u32::MAX),
@@ -172,7 +165,6 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
         "FieldOfViewMode" => (450, u32::MAX),
         "HeadScale" => (240, u32::MAX),
         "HeadLocked" => (234, u32::MAX),
-        "CFrame" => (230, u32::MAX),
         "FieldOfView" => (50, u32::MAX),
     },
     "BubbleChatConfiguration" => phf_map! {
@@ -198,7 +190,6 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
         "RtlTextSupport" => (564, u32::MAX),
         "VirtualCursorMode" => (479, u32::MAX),
         "ScreenOrientation" => (290, u32::MAX),
-        "ResetPlayerGuiOnSpawn" => (123, u32::MAX),
     },
     "ServiceVisibilityService" => phf_map! {
         "HiddenServices" => (587, u32::MAX),
@@ -240,7 +231,6 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
         "GameSettingsAvatar" => (381, u32::MAX),
         "CharacterJumpHeight" => (375, u32::MAX),
         "GameSettingsAssetIDFace" => (373, u32::MAX),
-        "AllowCustomAnimations" => (303, u32::MAX),
         "ScreenOrientation" => (285, 290),
         "LoadCharacterAppearance" => (218, u32::MAX),
         "AutoJumpEnabled" => (206, u32::MAX),
@@ -300,6 +290,7 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
     "PermissionsService" => single_attr! (420, u32::MAX),
     "LocalizationService" => single_attr! (276, u32::MAX),
     "TouchInputService" => single_attr! (205, u32::MAX),
+    "StarterPlayerScripts" => single_attr! (189, u32::MAX),
     "NonReplicatedCSGDictionaryService" => single_attr! (176, u32::MAX),
     "Folder" => single_attr! (162, u32::MAX),
     "ReplicatedFirst" => single_attr! (154, u32::MAX),
