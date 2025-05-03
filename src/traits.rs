@@ -145,7 +145,6 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
         "PhysicsSteppingMethod" => (464, u32::MAX),
         "TouchesUseCollisionGroups" => (460, u32::MAX),
         "StreamingMinRadius" => (362, u32::MAX),
-        "FallenPartsDestroyHeight" => (298, u32::MAX),
         "Gravity" => (241, u32::MAX),
         "AllowThirdPartySales" => (221, u32::MAX),
         "StreamingEnabled" => (132, u32::MAX),
