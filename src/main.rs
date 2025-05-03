@@ -43,17 +43,6 @@ fn analyse_dom(dom: rbx_dom_weak::WeakDom) -> Result<(u32, u32), Box<dyn std::er
                     }
                 }
                 false => {
-                    if name.contains("Parent") {
-                        println!(
-                            "{}",
-                            descendant
-                                .properties
-                                .keys()
-                                .map(|e| e.as_str())
-                                .collect::<Vec<_>>()
-                                .join(" ")
-                        );
-                    }
                     if v_max >= likely_version_max && v_min < likely_version_max {
                         likely_version_max = v_min;
                     }
