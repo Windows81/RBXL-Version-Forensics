@@ -1,37 +1,31 @@
 use clap::Parser;
-use std::collections::HashSet;
+use constants::ERAS;
+use deserializer::ClassMap;
 use std::fs::File;
-use std::io::BufReader;
+use std::io::{self, BufRead, BufReader};
 use std::u32;
-use ustr::Ustr;
-mod traits;
+mod constants;
+mod deserializer;
 
 /// Simple program to greet a person
 #[derive(Parser, Debug)]
 #[command(about, long_about = None)]
 struct Args {
-    file_paths: Vec<String>,
+    file_paths: Option<Vec<String>>,
 }
 
-fn analyse_dom(dom: rbx_dom_weak::WeakDom) -> Result<(u32, u32), Box<dyn std::error::Error>> {
-    let mut used_classes = HashSet::new();
-
-    let mut likely_version_min = traits::VERSION_MIN;
-    let mut likely_version_max = traits::VERSION_MAX;
-    for descendant in dom.descendants() {
-        let class = descendant.class.as_str();
-        if used_classes.contains(class) {
-            continue;
-        }
-        let Some(h) = traits::TRAITS.get(class) else {
+fn analyse_class_map(map: ClassMap) -> Result<(u32, u32), Box<dyn std::error::Error>> {
+    let mut likely_version_min = constants::VERSION_MIN;
+    let mut likely_version_max = constants::VERSION_MAX;
+    for (class, props) in map.class_to_props.iter() {
+        let Some(h) = constants::TRAITS.get(class) else {
             continue;
         };
 
-        used_classes.insert(class);
         for (&name, &(v_min, v_max)) in h.entries() {
             let check = match name {
                 "" => true,
-                _ => descendant.properties.contains_key(&Ustr::from(name)),
+                _ => props.contains(name),
             };
             match check {
                 true => {
@@ -51,24 +45,47 @@ fn analyse_dom(dom: rbx_dom_weak::WeakDom) -> Result<(u32, u32), Box<dyn std::er
         }
     }
 
-    return Ok((likely_version_min, likely_version_max - 1));
     match likely_version_min >= likely_version_max {
-        true => Err("This program needs help figuring your file out.".into()),
+        true => Err(format!(
+            "This program needs help figuring your file out [{} {}].",
+            likely_version_min,
+            likely_version_max - 1
+        )
+        .into()),
         false => Ok((likely_version_min, likely_version_max - 1)),
     }
 }
 
 fn analyse_file(file_name: String) -> Result<(u32, u32), Box<dyn std::error::Error>> {
     let input = BufReader::new(File::open(file_name)?);
-    let dom = rbx_binary::from_reader(input)?;
-    return analyse_dom(dom);
+    let dom = deserializer::deserialize(input)?;
+    return analyse_class_map(dom);
+}
+
+fn get_version_era(version: u32) -> String {
+    return match ERAS.iter().find(|(_, min)| version > *min) {
+        Some(&(era, min)) => era,
+        None => "N/A",
+    }
+    .into();
 }
 
 fn main() {
-    for path in Args::parse().file_paths {
+    let paths = match Args::parse().file_paths {
+        Some(x) => x,
+        None => io::stdin().lock().lines().into_iter().flatten().collect(),
+    };
+    for path in paths {
         let Ok((v_min, v_max)) = analyse_file(path.clone()) else {
             continue;
         };
-        println!("{},{},{}", path, v_min, v_max);
+        println!(
+            "{},{},{},{},{}",
+            path,
+            v_min,
+            v_max,
+            get_version_era(v_min),
+            get_version_era(v_max),
+        );
     }
 }
