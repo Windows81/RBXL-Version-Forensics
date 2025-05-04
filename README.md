@@ -4,11 +4,24 @@
 forensics.exe file1.rbxl ./dir/file2.rbxl ...
 ```
 
-Expect output like:
+**Expect output like:**
 
 ```
-file1.rbxl,664,670
-./dir/file2.rbxl,536,539
+file1.rbxl,628,639,2024M,2024M
+./dir/file2.rbxl,176,203,2014L,2015M
+```
+
+You can also pass a list of files through _stdin_:
+
+```
+cat list.txt | forensics.exe
+```
+
+Where `list.txt` is like:
+
+```
+file1.rbxl
+./dir/file2.rbxl
 ```
 
 Supports `rbxl` or `rbxm` files saved with Studio versions 47 thru 😈😈 ~666 😈😈.
