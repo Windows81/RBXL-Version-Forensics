@@ -47,7 +47,7 @@ fn analyse_class_map(map: ClassMap) -> Result<(u32, u32), Box<dyn std::error::Er
 
     match likely_version_min >= likely_version_max {
         true => Err(format!(
-            "This program needs help figuring your file out [{} {}].",
+            "Err: this program needs help figuring this data out [{}, {}].",
             likely_version_min,
             likely_version_max - 1
         )
@@ -76,16 +76,20 @@ fn main() {
         None => io::stdin().lock().lines().into_iter().flatten().collect(),
     };
     for path in paths {
-        let Ok((v_min, v_max)) = analyse_file(path.clone()) else {
-            continue;
-        };
-        println!(
-            "{},{},{},{},{}",
-            path,
-            v_min,
-            v_max,
-            get_version_era(v_min),
-            get_version_era(v_max),
-        );
+        match analyse_file(path.clone()) {
+            Ok((v_min, v_max)) => {
+                println!(
+                    "{},{},{},{},{}",
+                    path,
+                    v_min,
+                    v_max,
+                    get_version_era(v_min),
+                    get_version_era(v_max),
+                );
+            }
+            Err(e) => {
+                eprintln!("{}", e);
+            }
+        }
     }
 }

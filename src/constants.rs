@@ -16,7 +16,7 @@ macro_rules! single_attr {
     };
 }
 pub const VERSION_MIN: u32 = 47;
-pub const VERSION_MAX: u32 = 672;
+pub const VERSION_MAX: u32 = 674;
 
 const TEXT_GUI_OBJECT: HashType = phf_map! {
     "OpenTypeFeatures" => (629, u32::MAX),
@@ -79,6 +79,8 @@ const BASE_PART: HashType = phf_map! {
     "PhysicsCFrame" => (631, 635),
     "AudioCanCollide" => (652, u32::MAX),
     "EnableFluidForces" => (581, u32::MAX),
+    "Color3uint8" => (553, u32::MAX),
+    "CollisionGroup" => (532, u32::MAX),
     "CanQuery" => (484, u32::MAX),
     "PivotOffset" => (470, u32::MAX),
     "CanTouch" => (460, u32::MAX),
@@ -98,9 +100,65 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
     "TextButton" => TEXT_GUI_OBJECT,
     "ImageButton" => IMAGE_GUI_OBJECT,
     "ImageLabel" => IMAGE_GUI_OBJECT,
+
+    "UICorner" => single_attr! (435, u32::MAX),
+    "UIStroke" => single_attr! (466, u32::MAX),
+    "UIScale" => single_attr! (287, u32::MAX),
+    "UIFlexItem" => single_attr! (598, u32::MAX),
+    "UIGridLayout" => phf_map! {
+        "AbsoluteCellCount" => (396, u32::MAX),
+        "CellPadding" => (266, u32::MAX),
+    },
+    "UITableLayout" => phf_map! {
+        "FillEmptySpaceColumns" => (290, u32::MAX),
+    },
+    "UIListLayout" => phf_map! {
+        "HorizontalPadding" => (599, u32::MAX),
+        "HorizontalFlex" => (598, u32::MAX),
+        "Padding" => (274, u32::MAX),
+        "AbsoluteContentSize" => (286, u32::MAX),
+    },
+    "UIPageLayout" => phf_map! {
+        "GamepadInputEnabled" => (310, u32::MAX),
+        "Animated" => (284, u32::MAX),
+    },
+    "UIGradient" => phf_map! {
+        "Enabled" => (423, u32::MAX),
+        "Color" => (412, u32::MAX),
+    },
+
     "Model" => phf_map! {
         "ModelStreamingMode" => (548, u32::MAX),
         "LevelOfDetail" => (442, u32::MAX),
+    },
+    "BillboardGui" => phf_map! {
+        "SelectionBehaviorDown" => (522, u32::MAX),
+        "Brightness" => (480, u32::MAX),
+        "DistanceLowerLimit" => (382, u32::MAX),
+        "ClipsDescendants" => (340, u32::MAX),
+        "AutoLocalize" => (326, u32::MAX),
+        "MaxDistance" => (295, u32::MAX),
+        "LightInfluence" => (291, u32::MAX),
+        "ExtentsOffsetWorldSpace" => (281, u32::MAX),
+        "PlayerToHideFrom" => (50, u32::MAX),
+    },
+    "SurfaceGui" => phf_map! {
+        "MaxDistance" => (590, u32::MAX),
+        "SelectionBehaviorDown" => (522, u32::MAX),
+        "Brightness" => (480, u32::MAX),
+        "PixelsPerStud" => (383, u32::MAX),
+        "ClipsDescendants" => (340, u32::MAX),
+        "AutoLocalize" => (326, u32::MAX),
+        "LightInfluence" => (291, u32::MAX),
+        "ZOffset" => (280, u32::MAX),
+        "AlwaysOnTop" => (241, u32::MAX),
+        "ToolPunchThroughDistance" => (152, u32::MAX),
+        "CanvasSize" => (131, u32::MAX),
+    },
+    "Beam" => phf_map! {
+        "Brightness" => (498, u32::MAX),
+        "LightInfluence" => (323, u32::MAX),
+        "Attachment0" => (315, u32::MAX),
     },
     "Terrain" => phf_map! {
         "GrassLength" => (595, u32::MAX),
@@ -193,6 +251,14 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
         "HiddenServices" => (587, u32::MAX),
         "VisibleServices" => (570, u32::MAX),
     },
+    "TestService" => phf_map! {
+        "ThrottlePhysicsToRealtime" => (660, u32::MAX),
+        "ExecuteWithStudioRun" => (337, u32::MAX),
+        "SimulateSecondsLag" => (178, u32::MAX),
+        "NumberOfPlayers" => (95, u32::MAX),
+        "AutoRuns" => (52, u32::MAX),
+        "Description" => (51, u32::MAX),
+    },
     "ParticleEmitter" => phf_map! {
         "WindAffectsDrag" => (576, u32::MAX),
         "FlipbookFramerate" => (506, u32::MAX),
@@ -280,6 +346,27 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
         "AutomaticRetry" => (306, u32::MAX),
         "LegacyNamingScheme" => (155, u32::MAX),
         "" => (132, u32::MAX),
+    },
+    "Humanoid" => phf_map! {
+        "DisplayName" => (425, u32::MAX),
+        "CollisionType" => (376, u32::MAX),
+        "JumpHeight" => (375, u32::MAX),
+        "BreakJointsOnDeath" => (369, u32::MAX),
+        "AutomaticScalingEnabled" => (349, u32::MAX),
+        "HealthDisplayType" => (271, u32::MAX),
+        "RigType" => (233, u32::MAX),
+        "HipHeight" => (227, u32::MAX),
+        "JumpPower" => (210, u32::MAX),
+        "AutoJumpEnabled" => (206, u32::MAX),
+        "DisplayDistanceType" => (187, u32::MAX),
+        "AutoRotate" => (147, u32::MAX),
+        "NameOcclusion" => (51, u32::MAX),
+    },
+    "TextChatService" => phf_map! {
+        "HasSeenDeprecationDialog" => (657, u32::MAX),
+        "ChatTranslationFTUXShown" => (599, u32::MAX),
+        "ChatTranslationToggleEnabled" => (595, u32::MAX),
+        "ChatVersion" => (514, u32::MAX),
     },
 
     "LodDataService" => single_attr! (503, u32::MAX),
