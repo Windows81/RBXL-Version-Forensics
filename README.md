@@ -56,7 +56,6 @@ The `./deserializer` module contains scripts heavily modified from [the `rbx_bin
 Go to a page such as https://robloxapi.github.io/ref/class/ChatInputBarConfiguration.html and run the following JavaScript code in your devtools console, replacing the literal `{{}}` with a list of :
 
 ```js
-var MAX = "u32::MAX";
 var title = document.querySelector("#content h1").innerText.split("\n")[0];
 
 function t(e) {
@@ -68,7 +67,7 @@ function va(e) {
 }
 function vr(e) {
 	q = e.querySelector(":first-child>.removed");
-	return q ? Number.parseInt(q.text) : MAX;
+	return q ? Number.parseInt(q.text) : NaN;
 }
 
 var ar = Array.from(document.querySelectorAll(".members-sections>section:has(.col-valuetype)")).map((e) => [
@@ -77,11 +76,11 @@ var ar = Array.from(document.querySelectorAll(".members-sections>section:has(.co
 	vr(e),
 ]);
 ar.sort((a, b) => b[1] - a[1]);
-ar = ar.filter((e, i) => !(e[1] == 47 && e[2] == MAX));
+ar = ar.filter((e, i) => e[1] != 47 && e[2] == NaN));
 
 var map_value = ar
 	.filter((e, i) => i == 0 || ar[i - 1][1] != e[1])
-	.map((e) => `        "${e[0]}" => (${e[1]}, ${e[2]}),\n`)
+	.map((e) => `        "${e[0]}" => ${e[1]},\n`)
 	.join("");
 copy(`"${title}" => phf_map! {\n${map_value}    },`);
 ```
@@ -90,10 +89,10 @@ This will be in your clipboard:
 
 ```
 "ChatInputBarConfiguration" => phf_map! {
-        "AutocompleteEnabled" => (588, u32::MAX),
-        "KeyboardKeyCode" => (574, u32::MAX),
-        "BackgroundColor3" => (554, u32::MAX),
-        "Enabled" => (514, u32::MAX),
+        "AutocompleteEnabled" => 588,
+        "KeyboardKeyCode" => 574,
+        "BackgroundColor3" => 554,
+        "Enabled" => 514,
     },
 ```
 

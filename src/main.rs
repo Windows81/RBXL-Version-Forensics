@@ -22,7 +22,7 @@ fn analyse_class_map(map: ClassMap) -> Result<(u32, u32), Box<dyn std::error::Er
             continue;
         };
 
-        for (&name, &(v_min, v_max)) in h.entries() {
+        for (&name, &v_min) in h.entries() {
             let check = match name {
                 "" => true,
                 _ => props.contains(name),
@@ -32,12 +32,9 @@ fn analyse_class_map(map: ClassMap) -> Result<(u32, u32), Box<dyn std::error::Er
                     if v_min > likely_version_min {
                         likely_version_min = v_min;
                     }
-                    if v_max < likely_version_max {
-                        likely_version_max = v_max;
-                    }
                 }
                 false => {
-                    if v_max >= likely_version_max && v_min < likely_version_max {
+                    if v_min < likely_version_max {
                         likely_version_max = v_min;
                     }
                 }
