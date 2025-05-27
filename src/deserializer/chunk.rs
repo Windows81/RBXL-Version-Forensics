@@ -1,24 +1,12 @@
 use std::{
     fmt,
-    io::{self, Read, Write},
+    io::{self, Read},
     str,
 };
 
-use super::core::{RbxReadExt, RbxWriteExt};
+use super::core::RbxReadExt;
 
 const ZSTD_MAGIC_NUMBER: &[u8] = &[0x28, 0xb5, 0x2f, 0xfd];
-
-/// Indicates the types of compression that files can be written with.
-#[derive(Debug, PartialEq, Eq, Clone, Copy, Default)]
-pub enum CompressionType {
-    /// LZ4 compression. This is what Roblox uses by default.
-    #[default]
-    Lz4,
-    /// No compression.
-    None,
-    /// ZSTD compression.
-    Zstd,
-}
 
 /// Represents one chunk from a binary model file.
 #[derive(Debug)]
@@ -55,77 +43,6 @@ impl Chunk {
             name: header.name,
             data,
         })
-    }
-}
-
-/// Holds a chunk that is currently being written.
-///
-/// This type intended to be written into via io::Write and then dumped into the
-/// output stream all at once. It handles compression and chunk header output
-/// automatically.
-#[must_use]
-pub struct ChunkBuilder {
-    chunk_name: &'static [u8],
-    compression: CompressionType,
-    buffer: Vec<u8>,
-}
-
-impl ChunkBuilder {
-    /// Creates a new `ChunkBuilder` with the given name and compression
-    /// setting.
-    pub fn new(chunk_name: &'static [u8], compression: CompressionType) -> Self {
-        ChunkBuilder {
-            chunk_name,
-            compression,
-            buffer: Vec::new(),
-        }
-    }
-
-    /// Consume the chunk and write it to the given writer.
-    pub fn dump<W: Write>(self, mut writer: W) -> io::Result<()> {
-        writer.write_all(self.chunk_name)?;
-
-        match self.compression {
-            CompressionType::Lz4 => {
-                let compressed = lz4::block::compress(&self.buffer, None, false)?;
-
-                writer.write_le_u32(compressed.len() as u32)?;
-                writer.write_le_u32(self.buffer.len() as u32)?;
-                writer.write_le_u32(0)?;
-
-                writer.write_all(&compressed)?;
-            }
-            CompressionType::None => {
-                writer.write_le_u32(0)?;
-                writer.write_le_u32(self.buffer.len() as u32)?;
-                writer.write_le_u32(0)?;
-
-                writer.write_all(&self.buffer)?;
-            }
-            CompressionType::Zstd => {
-                let compressed = zstd::bulk::compress(&self.buffer, 0)?;
-
-                writer.write_le_u32(compressed.len() as u32)?;
-                writer.write_le_u32(self.buffer.len() as u32)?;
-                writer.write_le_u32(0)?;
-
-                // ZSTD includes the magic number when compressing so we don't
-                // have to write it manually
-                writer.write_all(&compressed)?;
-            }
-        }
-
-        Ok(())
-    }
-}
-
-impl Write for ChunkBuilder {
-    fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
-        self.buffer.write(buf)
-    }
-
-    fn flush(&mut self) -> io::Result<()> {
-        Ok(())
     }
 }
 

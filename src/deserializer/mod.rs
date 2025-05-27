@@ -3,10 +3,7 @@ mod core;
 mod header;
 
 use core::RbxReadExt;
-use std::{
-    collections::{HashMap, HashSet},
-    io::Read,
-};
+use std::collections::{HashMap, HashSet};
 
 pub struct ClassMap {
     pub class_to_props: HashMap<String, HashSet<String>>,

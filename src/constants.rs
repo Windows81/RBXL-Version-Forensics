@@ -35,22 +35,15 @@ const TEXT_GUI_OBJECT: HashType = phf_map! {
     "LayoutOrder" => 280,
     "AnchorPoint" => 271,
     "Selectable" => 201,
-    "SelectionImageObject" => 200,
-    "NextSelectionDown" => 197,
-    "NextSelectionLeft" => 197,
-    "NextSelectionRight" => 197,
-    "NextSelectionUp" => 197,
     "Rotation" => 131,
     "ClipsDescendants" => 48,
 };
 
 const IMAGE_GUI_OBJECT: HashType = phf_map! {
     "ResampleMode" => 490,
-    "SliceScale" => 356,
     "TileSize" => 290,
     "ScaleType" => 207,
     "SliceCenter" => 207,
-    "ImageColor3" => 163,
     "ImageTransparency" => 148,
     "ImageRectOffset" => 131,
 
@@ -61,11 +54,6 @@ const IMAGE_GUI_OBJECT: HashType = phf_map! {
     "LayoutOrder" => 280,
     "AnchorPoint" => 271,
     "Selectable" => 201,
-    "SelectionImageObject" => 200,
-    "NextSelectionDown" => 197,
-    "NextSelectionLeft" => 197,
-    "NextSelectionRight" => 197,
-    "NextSelectionUp" => 197,
     "Rotation" => 131,
     "ClipsDescendants" => 48,
 };
@@ -73,12 +61,10 @@ const IMAGE_GUI_OBJECT: HashType = phf_map! {
 const BASE_PART: HashType = phf_map! {
     "AudioCanCollide" => 652,
     "EnableFluidForces" => 581,
-    "CollisionGroup" => 532,
     "CanQuery" => 484,
     "PivotOffset" => 470,
     "CanTouch" => 460,
-    "CastShadow" => 380,
-    "Massless" => 361,
+    // "CastShadow" => 380, TODO: add support for 2018 FiB builds
     "RootPriority" => 361,
     "CollisionGroupId" => 287,
     "CustomPhysicalProperties" => 220,
@@ -94,14 +80,25 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
     "ImageButton" => IMAGE_GUI_OBJECT,
     "ImageLabel" => IMAGE_GUI_OBJECT,
 
+    "PointLight" => phf_map! {
+        "Enabled" => 101,
+        "Brightness" => 95,
+    },
+    "SpotLight" => phf_map! {
+        "Enabled" => 101,
+        "Brightness" => 95,
+    },
+    "SurfaceLight" => phf_map! {
+        "Angle" => 184,
+        "Enabled" => 101,
+        "Brightness" => 95,
+    },
+
     "UICorner" => single_attr! (435),
     "UIStroke" => single_attr! (466),
     "UIScale" => single_attr! (287),
     "UIFlexItem" => single_attr! (598),
-    "UIGridLayout" => phf_map! {
-        "AbsoluteCellCount" => 396,
-        "CellPadding" => 266,
-    },
+    "UIGridLayout" => single_attr! (266),
     "UITableLayout" => phf_map! {
         "FillEmptySpaceColumns" => 290,
     },
@@ -118,6 +115,12 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
         "Enabled" => 423,
         "Color" => 412,
     },
+    "ViewportFrame" => phf_map! {
+        "Ambient" => 384,
+        "ImageColor3" => 367,
+        "" => 361,
+    },
+    "VideoFrame" => single_attr! (414),
 
     "Model" => phf_map! {
         "ModelStreamingMode" => 548,
@@ -127,20 +130,15 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
         "SelectionBehaviorDown" => 522,
         "Brightness" => 480,
         "DistanceLowerLimit" => 382,
-        "ClipsDescendants" => 340,
-        "AutoLocalize" => 326,
         "MaxDistance" => 295,
         "LightInfluence" => 291,
         "ExtentsOffsetWorldSpace" => 281,
-        "PlayerToHideFrom" => 50,
     },
     "SurfaceGui" => phf_map! {
         "MaxDistance" => 590,
         "SelectionBehaviorDown" => 522,
         "Brightness" => 480,
         "PixelsPerStud" => 383,
-        "ClipsDescendants" => 340,
-        "AutoLocalize" => 326,
         "LightInfluence" => 291,
         "ZOffset" => 280,
         "AlwaysOnTop" => 241,
@@ -150,13 +148,12 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
     "Beam" => phf_map! {
         "Brightness" => 498,
         "LightInfluence" => 323,
-        "Attachment0" => 315,
+        "" => 315,
     },
     "Terrain" => phf_map! {
         "GrassLength" => 595,
         "ShorelinesUpgraded" => 554,
         "Decoration" => 410,
-        "WaterReflectance" => 262,
         "WaterColor" => 223,
     },
     "Players" => phf_map! {
@@ -177,21 +174,10 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
         "RenderingCacheOptimizations" => 623,
         "PlayerCharacterDestroyBehavior" => 603,
         "PrimalPhysicsSolver" => 600,
-        "FluidForces" => 587,
         "AirDensity" => 581,
-        "ModelStreamingBehavior" => 580,
-        "AvatarUnificationMode" => 572,
-        "RejectCharacterDeletions" => 555,
-        "StreamingIntegrityMode" => 541,
-        "ReplicateInstanceDestroySetting" => 513,
         "GlobalWind" => 512,
         "Retargeting" => 494,
-        "StreamOutBehavior" => 491,
         "ClientAnimatorThrottling" => 475,
-        "MeshPartHeadsAndAccessories" => 466,
-        "PhysicsSteppingMethod" => 464,
-        "TouchesUseCollisionGroups" => 460,
-        "StreamingMinRadius" => 362,
         "Gravity" => 241,
         "AllowThirdPartySales" => 221,
         "StreamingEnabled" => 132,
@@ -199,8 +185,7 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
     "Lighting" => phf_map! {
         "LightingStyle" => 653,
         "EnvironmentDiffuseScale" => 407,
-        "ShadowSoftness" => 380,
-        "ExposureCompensation" => 355,
+        // "ShadowSoftness" => 380, TODO: add support for 2018 FiB builds
         "Outlines" => 114,
         "OutdoorAmbient" => 101,
         "GlobalShadows" => 98,
@@ -209,14 +194,12 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
     "Camera" => phf_map! {
         "VRTiltAndRollEnabled" => 577,
         "FieldOfViewMode" => 450,
-        "HeadScale" => 240,
         "HeadLocked" => 234,
         "FieldOfView" => 50,
     },
     "BubbleChatConfiguration" => phf_map! {
         "MaxBubbles" => 580,
         "BackgroundTransparency" => 553,
-        "FontFace" => 551,
         "AdorneeName" => 543,
     },
     "InsertService" => phf_map! {
@@ -232,8 +215,6 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
     "StarterGui" => phf_map! {
         "StudioDefaultStyleSheet" => 664,
         "StudioInsertWidgetLayerCollectorAutoLinkStyleSheet" => 661,
-        "RtlTextSupport" => 564,
-        "VirtualCursorMode" => 479,
         "ScreenOrientation" => 290,
     },
     "ServiceVisibilityService" => phf_map! {
@@ -257,10 +238,6 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
         "Drag" => 209,
         "Acceleration" => 189,
     },
-    "MaterialService" => phf_map! {
-        "CardboardName" => 588,
-        "SmoothPlasticName" => 518,
-    },
     "ChannelTabsConfiguration" => phf_map! {
         "BackgroundColor3" => 635,
     },
@@ -272,7 +249,6 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
     },
     "ChatWindowConfiguration" => phf_map! {
         "BackgroundColor3" => 551,
-        "HorizontalAlignment" => 547,
         "Enabled" => 514,
     },
     "StarterPlayer" => phf_map! {
@@ -298,15 +274,12 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
         "AudioApiByDefault" => 660,
         "CharacterSoundsUseNewApi" => 659,
         "DefaultListenerLocation" => 645,
-        "VolumetricAudio" => 536,
         "RespectFilteringEnabled" => 305,
     },
     "Sky" => phf_map! {
         "SkyboxOrientation" => 671,
-        "MoonAngularSize" => 303,
     },
     "ModuleScript" => phf_map! {
-        "LinkedSource" => 187,
         "Source" => 137,
         "" => 131,
     },
@@ -338,12 +311,10 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
         "CollisionType" => 376,
         "JumpHeight" => 375,
         "BreakJointsOnDeath" => 369,
-        "AutomaticScalingEnabled" => 349,
         "HealthDisplayType" => 271,
-        "RigType" => 233,
         "HipHeight" => 227,
         "JumpPower" => 210,
-        "DisplayDistanceType" => 187,
+        "HealthDisplayDistance" => 187,
         "NameOcclusion" => 51,
     },
     "TextChatService" => phf_map! {
@@ -353,6 +324,7 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
         "ChatVersion" => 514,
     },
 
+    "MaterialService" => single_attr! (494),
     "LodDataService" => single_attr! (503),
     "ProcessInstancePhysicsService" => single_attr! (498),
     "ProximityPromptService" => single_attr! (454),

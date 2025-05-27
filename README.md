@@ -41,17 +41,19 @@ When you save an `rbxl` file on Rōblox Studio, many properties will be saved wi
 
 ... and so many more.
 
-New properties get added to `Workspace` and other classes every version.
+New properties get added to `Workspace` and other classes every couple of versions.
 
 Even if you modify an older `rbxl` file, the new properties will also be added once you save again.
 
 My program collects the class names and their respective properties and estimates based on which ones saved with your file.
 
-The `./deserializer` module contains scripts heavily modified from [the `rbx_binary` crate](https://github.com/rojo-rbx/rbx-dom/tree/master/rbx_binary). The main difference is that it only takes property names (and not their values). Much faster.
+The [`./src/deserializer`](./src/deserializer/) directory contains scripts heavily modified from [the `rbx_binary` crate](https://github.com/rojo-rbx/rbx-dom/tree/master/rbx_binary). The main difference is that it only takes property names (and not their values). Much faster.
 
 ---
 
-### For `./src/const.rs`
+### What props are checked?
+
+You can consult the [`./src/constants.rs`](./src/constants.rs) file.
 
 Go to a page such as https://robloxapi.github.io/ref/class/ChatInputBarConfiguration.html and run the following JavaScript code in your devtools console, replacing the literal `{{}}` with a list of :
 
@@ -76,7 +78,7 @@ var ar = Array.from(document.querySelectorAll(".members-sections>section:has(.co
 	vr(e),
 ]);
 ar.sort((a, b) => b[1] - a[1]);
-ar = ar.filter((e, i) => e[1] != 47 && e[2] == NaN));
+ar = ar.filter((e, i) => e[1] != 47 && e[2] == NaN);
 
 var map_value = ar
 	.filter((e, i) => i == 0 || ar[i - 1][1] != e[1])
@@ -127,14 +129,20 @@ This Python script copies (to your clipboard) the particular 'eras' that version
 ```py
 import requests
 import pyperclip
-d={}
-r=requests.get('https://setup.rbxcdn.com/DeployHistory.txt').text
-def f(l):R=re.search(r'at (\d+)/\d+/(\d+) [\d:]+ [AP]M, file vers?ion: 0, (\d+)',l);m=int(R[1]);return (R[2]+('E' if m<5 else 'M' if m<9 else 'L'),int(R[3]))
+d = {}
+r = requests.get('https://setup.rbxcdn.com/DeployHistory.txt').text
+
+
+def f(l): R = re.search(r'at (\d+)/\d+/(\d+) [\d:]+ [AP]M, file vers?ion: 0, (\d+)', l); m = int(
+    R[1]); return (R[2]+('E' if m < 5 else 'M' if m < 9 else 'L'), int(R[3]))
+
+
 for l in r.split('\r\n'):
- try:
-  (era,v)=f(l)
-  d.setdefault(era,v)
- except Exception:
-  continue
-pyperclip.copy('\n'.join(f'    ("{k}", {e}),' for k,e in reversed(d.items())))
+    try:
+        (era, v) = f(l)
+        d.setdefault(era, v)
+    except Exception:
+        continue
+
+pyperclip.copy('\n'.join(f'    ("{k}", {e}),' for k, e in reversed(d.items())))
 ```

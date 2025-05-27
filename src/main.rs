@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use clap::Parser;
 use constants::ERAS;
 use deserializer::ClassMap;
@@ -61,7 +63,7 @@ fn analyse_file(file_name: String) -> Result<(u32, u32), Box<dyn std::error::Err
 
 fn get_version_era(version: u32) -> String {
     return match ERAS.iter().find(|(_, min)| version > *min) {
-        Some(&(era, min)) => era,
+        Some(&(era, _)) => era,
         None => "N/A",
     }
     .into();
