@@ -26,8 +26,6 @@ file1.rbxl
 
 Supports `rbxl` or `rbxm` files saved with Studio versions 47 thru 😈😈 ~666 😈😈 (or whatever `VERSION_MAX` in `./src/constants.rs` says).
 
----
-
 ## How did I do it?
 
 When you save an `rbxl` file on Rōblox Studio, many properties will be saved with each in-game instance. Even ones that you don't usually modify. For example, `Workspace` saves with:
@@ -49,9 +47,7 @@ My program collects the class names and their respective properties and estimate
 
 The [`./src/deserializer`](./src/deserializer/) directory contains scripts heavily modified from [the `rbx_binary` crate](https://github.com/rojo-rbx/rbx-dom/tree/master/rbx_binary). The main difference is that it only takes property names (and not their values). Much faster.
 
----
-
-### What props are checked?
+## What props are checked?
 
 You can consult the [`./src/constants.rs`](./src/constants.rs) file.
 
@@ -104,7 +100,7 @@ Make sure to verify that your properties appear in actual live files. To get a l
 curl https://github.com/jarenm1/rbx-mcp/raw/46d5893c70bcfeff3cd94d8945c311f46441e264/output.rbxlx -L | grep -P "(?<=class=`")[^`"]+" -o | sort -u
 ```
 
-### Other Files That I Consulted
+## Other Files That I Consulted
 
 - https://github.com/LionelBergen/RobloxHelloWorld/raw/8511247f9211e880f9d8cf3d9f9e1aaf8c125221/MyFirstRobloxApp.rbxlx
 - https://github.com/TheEpicFace007/roblox-domino-pizza-api/raw/cf7550c8bebcf71b9765a30732d3e3d535097b18/roblox-domino-pizza-api.rbxlx
@@ -122,7 +118,7 @@ curl https://github.com/jarenm1/rbx-mcp/raw/46d5893c70bcfeff3cd94d8945c311f46441
 - https://github.com/EveryoneDestroysTheWorld/turf-war/raw/ff34d42309e025ae39a1bb490a11c36d8e0c926b/src/Workspace/Terrain.rbxmx
 - https://github.com/rojo-rbx/rbx-test-files/raw/7519945aeda55b675290e09390a9c755d17a1bdc/models/imagelabel-content/xml.rbxmx
 
----
+## Misc.
 
 This Python script copies (to your clipboard) the particular 'eras' that versions of Rōblox were built.
 
