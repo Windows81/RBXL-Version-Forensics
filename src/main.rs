@@ -87,7 +87,7 @@ fn main() {
                 );
             }
             Err(e) => {
-                eprintln!("{}", e);
+                eprintln!("[{}] {}", path, e);
             }
         }
     }

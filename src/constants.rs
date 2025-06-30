@@ -13,7 +13,7 @@ macro_rules! single_attr {
     };
 }
 pub const VERSION_MIN: u32 = 47;
-pub const VERSION_MAX: u32 = 673;
+pub const VERSION_MAX: u32 = 678;
 
 const TEXT_GUI_OBJECT: HashType = phf_map! {
     "OpenTypeFeatures" => 629,
@@ -120,6 +120,13 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
         "ImageColor3" => 367,
         "" => 361,
     },
+    "ScrollingFrame" => phf_map! {
+        "AutomaticCanvasSize" => 449,
+        "ScrollBarImageColor3" => 348,
+        "ElasticBehavior" => 329,
+        "HorizontalScrollBarInset" => 299,
+        "" => 149,
+    },
     "VideoFrame" => single_attr! (414),
 
     "Model" => phf_map! {
@@ -152,7 +159,6 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
     },
     "Terrain" => phf_map! {
         "GrassLength" => 595,
-        "ShorelinesUpgraded" => 554,
         "Decoration" => 410,
         "WaterColor" => 223,
     },
@@ -165,6 +171,8 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
         "" => 384,
     },
     "Workspace" => phf_map! {
+        "UseImprovedModelLod" => 678,
+        "UseNewLuauTypeSolver" => 677,
         "PhysicsImprovedSleep" => 662,
         "FallHeightEnabled" => 655,
         "TouchEventsUseCollisionGroups" => 650,
@@ -201,6 +209,10 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
         "MaxBubbles" => 580,
         "BackgroundTransparency" => 553,
         "AdorneeName" => 543,
+    },
+    "AuroraService" => phf_map! {
+        "HashRoundingPoint" => 673,
+        "" => 654,
     },
     "InsertService" => phf_map! {
         "AllowInsertFreeModels" => 224,

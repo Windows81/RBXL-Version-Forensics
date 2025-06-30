@@ -24,7 +24,13 @@ file1.rbxl
 ./dir/file2.rbxl
 ```
 
-Supports `rbxl` or `rbxm` files saved with Studio versions 47 thru 😈😈 ~666 😈😈 (or whatever `VERSION_MAX` in `./src/constants.rs` says).
+Supports `rbxl` or `rbxm` files saved with Studio versions 47 thru 678 (or whatever `VERSION_MAX` in [`./src/constants.rs`](./src/constants.rs) says).
+
+## How well does it work?
+
+On a dataset of **10,285** valid binary `rbxl` or `rbxm` files, took **4 minutes and 30 seconds** with close to *zero* version conflicts.
+
+These files were sourced from various "uncopylocked" file "servers" on Discord and contain some duplicates.
 
 ## How did I do it?
 
