@@ -57,7 +57,7 @@ The [`./src/deserializer`](./src/deserializer/) directory contains scripts heavi
 
 You can consult the [`./src/constants.rs`](./src/constants.rs) file.
 
-Go to a page such as https://robloxapi.github.io/ref/class/ChatInputBarConfiguration.html and run the following JavaScript code in your devtools console, replacing the literal `{{}}` with a list of :
+Go to a page such as https://robloxapi.github.io/ref/class/ChatInputBarConfiguration.html and run the following JavaScript code in your devtools console:
 
 ```js
 var title = document.querySelector("#content h1").innerText.split("\n")[0];
