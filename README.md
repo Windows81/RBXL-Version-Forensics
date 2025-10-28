@@ -28,7 +28,7 @@ Supports `rbxl` or `rbxm` files saved with Studio versions 47 thru 678 (or whate
 
 ## How well does it work?
 
-On a dataset of **10,285** valid binary `rbxl` or `rbxm` files, took **4 minutes and 30 seconds** with close to *zero* version conflicts.
+On a dataset of **10,285** valid binary `rbxl` or `rbxm` files, the tool took **4 minutes and 30 seconds** with probably fewer than ten version conflicts.
 
 These files were sourced from various "uncopylocked" file "servers" on Discord and contain some duplicates.
 
@@ -127,6 +127,8 @@ curl https://github.com/jarenm1/rbx-mcp/raw/46d5893c70bcfeff3cd94d8945c311f46441
 ## Misc.
 
 This Python script copies (to your clipboard) the particular 'eras' that versions of Rōblox were built.
+
+An 'era' in old-Rōblox-community parlance is defined as a four-month period classifid as the year, followed by 'E' (early), 'M' (mid), or 'L' (late).
 
 ```py
 import requests

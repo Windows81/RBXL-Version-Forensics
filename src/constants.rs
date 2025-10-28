@@ -13,7 +13,7 @@ macro_rules! single_attr {
     };
 }
 pub const VERSION_MIN: u32 = 47;
-pub const VERSION_MAX: u32 = 678;
+pub const VERSION_MAX: u32 = 697;
 
 const TEXT_GUI_OBJECT: HashType = phf_map! {
     "OpenTypeFeatures" => 629,
@@ -171,7 +171,8 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
         "" => 384,
     },
     "Workspace" => phf_map! {
-        "UseImprovedModelLod" => 678,
+        "AirTurbulenceIntensity" => 689,
+        "LuauTypeCheckMode" => 678,
         "UseNewLuauTypeSolver" => 677,
         "PhysicsImprovedSleep" => 662,
         "FallHeightEnabled" => 655,
@@ -191,6 +192,7 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
         "StreamingEnabled" => 132,
     },
     "Lighting" => phf_map! {
+        "ExtendLightRangeTo120" => 681,
         "LightingStyle" => 653,
         "EnvironmentDiffuseScale" => 407,
         // "ShadowSoftness" => 380, TODO: add support for 2018 FiB builds
@@ -336,6 +338,8 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
         "ChatVersion" => 514,
     },
 
+    "EncodingService" => single_attr! (697),
+    "SoundShimService" => single_attr! (688),
     "MaterialService" => single_attr! (494),
     "LodDataService" => single_attr! (503),
     "ProcessInstancePhysicsService" => single_attr! (498),
@@ -345,6 +349,7 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
     "TouchInputService" => single_attr! (205),
     "StarterPlayerScripts" => single_attr! (189),
     "NonReplicatedCSGDictionaryService" => single_attr! (176),
+    "AudioTremolo" => single_attr! (689),
     "Folder" => single_attr! (162),
     "ReplicatedFirst" => single_attr! (154),
     "HttpService" => single_attr! (122),
@@ -353,7 +358,8 @@ pub const TRAITS: Map<&str, HashType> = phf_map! {
     "GamePassService" => single_attr! (72),
 };
 
-pub const ERAS: [(&str, u32); 44] = [
+pub const ERAS: [(&str, u32); 45] = [
+    ("2025L", 689),
     ("2025M", 671),
     ("2025E", 655),
     ("2024L", 641),
