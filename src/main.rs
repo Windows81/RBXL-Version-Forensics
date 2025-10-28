@@ -78,7 +78,7 @@ fn main() {
         match analyse_file(path.clone()) {
             Ok((v_min, v_max)) => {
                 println!(
-                    "{},{},{},{},{}",
+                    "\"{}\",{},{},{},{}",
                     path,
                     v_min,
                     v_max,
