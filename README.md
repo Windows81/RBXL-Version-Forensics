@@ -4,7 +4,7 @@
 forensics.exe file1.rbxl ./dir/file2.rbxl ...
 ```
 
-**Expect output like:**
+**Expect output in *headerless* CSV form like:**
 
 ```
 file1.rbxl,628,639,2024M,2024M
