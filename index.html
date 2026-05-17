@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>RBXL-Version-Forensics</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #121212;
+    color: #eee;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+}
+h1 {
+    margin-bottom: 20px;
+}
+#drop-zone {
+    border: 2px dashed #555;
+    border-radius: 10px;
+    padding: 40px;
+    width: 400px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+#drop-zone.hover {
+    border-color: #1e90ff;
+}
+table {
+    margin-top: 20px;
+    border-collapse: collapse;
+    width: 80%;
+}
+th, td {
+    padding: 10px 15px;
+    border: 1px solid #444;
+    text-align: center;
+}
+th {
+    background: #1e1e1e;
+}
+td {
+    background: #1a1a1a;
+}
+.error {
+    color: #ff5555;
+}
+</style>
+</head>
+<body>
+<h1><a href="https://github.com/Windows81/RBXL-Version-Forensics">RBXL-Version-Forensics</a></h1>
+<div id="drop-zone">Drag & Drop RBXL files here or click to browse</div>
+<input type="file" id="file-input" multiple style="display:none;">
+<table id="results">
+<thead>
+<tr>
+<th>File</th>
+<th>Min Version</th>
+<th>Max Version</th>
+<th>Era Min</th>
+<th>Era Max</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+<script type="module">
+import init, { decode_rbxl } from "./pkg/rbxl_version_forensics.js";
+await init();
+const drop = document.getElementById("drop-zone");
+const input = document.getElementById("file-input");
+const tbody = document.querySelector("#results tbody");
+drop.onclick = () => input.click();
+drop.ondragover = e => { e.preventDefault(); drop.classList.add("hover"); };
+drop.ondragleave = e => drop.classList.remove("hover");
+drop.ondrop = e => {
+    e.preventDefault();
+    drop.classList.remove("hover");
+    handleFiles(e.dataTransfer.files);
+};
+input.onchange = e => handleFiles(e.target.files);
+function handleFiles(files) {
+    for (let file of files) {
+        const row = document.createElement("tr");
+        const nameCell = document.createElement("td");
+        nameCell.textContent = file.name;
+        row.appendChild(nameCell);
+        const vMinCell = document.createElement("td");
+        const vMaxCell = document.createElement("td");
+        const eraMinCell = document.createElement("td");
+        const eraMaxCell = document.createElement("td");
+        const statusCell = document.createElement("td");
+        row.appendChild(vMinCell);
+        row.appendChild(vMaxCell);
+        row.appendChild(eraMinCell);
+        row.appendChild(eraMaxCell);
+        row.appendChild(statusCell);
+        tbody.appendChild(row);
+        file.arrayBuffer().then(buf => {
+            try {
+                const result = decode_rbxl(new Uint8Array(buf)).split(",");
+                vMinCell.textContent = result[0];
+                vMaxCell.textContent = result[1];
+                eraMinCell.textContent = result[2];
+                eraMaxCell.textContent = result[3];
+                statusCell.textContent = "OK";
+            } catch {
+                vMinCell.textContent = "-";
+                vMaxCell.textContent = "-";
+                eraMinCell.textContent = "-";
+                eraMaxCell.textContent = "-";
+                statusCell.textContent = "Error";
+                statusCell.classList.add("error");
+            }
+        });
+    }
+}
+</script>
+</body>
+</html>
