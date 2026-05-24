@@ -9,7 +9,6 @@ use std::u32;
 mod constants;
 mod deserializer;
 
-/// Simple program to greet a person
 #[derive(Parser, Debug)]
 #[command(about, long_about = None)]
 struct Args {
