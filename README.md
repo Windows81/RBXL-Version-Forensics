@@ -24,7 +24,7 @@ file1.rbxl
 ./dir/file2.rbxl
 ```
 
-Supports `rbxl` or `rbxm` files saved with Studio versions 47 thru 697 (or whatever `VERSION_MAX` in [`./src/constants.rs`](./src/constants.rs) says).
+Supports `rbxl` or `rbxm` files saved with Studio versions 47 thru 697 (according to `VERSION_MAX` in [`./src/constants.rs`](./src/constants.rs)).
 
 ## How well does it work?
 
@@ -57,7 +57,7 @@ The [`./src/deserializer`](./src/deserializer/) directory contains scripts heavi
 
 You can consult the [`./src/constants.rs`](./src/constants.rs) file.
 
-Go to a page such as https://robloxapi.github.io/ref/class/ChatInputBarConfiguration.html and run the following JavaScript code in your devtools console:
+Go to a page such as https://setup-rbxcdn.github.io/ref/class/ChatInputBarConfiguration.html and run the following JavaScript code in your devtools console:
 
 ```js
 var title = document.querySelector("#content h1").innerText.split("\n")[0];
